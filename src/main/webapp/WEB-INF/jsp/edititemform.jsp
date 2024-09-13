@@ -4,25 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Item</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+    <title>Edit Item</title>
     <style>
-        /* Your existing CSS styles */
+        /* Similar styles as itemform.jsp */
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2>Add New Item</h2>
-        
-        <form:form method="post" action="save">
+        <h2>Edit Item</h2>
+        <form:form method="post" action="updateitem" modelAttribute="command">
             <table>
                 <tr>
                     <td>Item Number:</td>
-                    <td><form:input path="itemNumber" /></td>
+                    <td><form:input path="itemNumber" readonly="true"/></td>
                 </tr>
                 <tr>
                     <td>Item Name:</td>
@@ -32,9 +26,10 @@
                     <td>Item Cost:</td>
                     <td><form:input path="itemCost" /></td>
                 </tr>
+                
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Add Item" />
+                        <input type="submit" value="Update Item" />
                     </td>
                 </tr>
             </table>
@@ -42,6 +37,5 @@
 
         <a href="${pageContext.request.contextPath}/viewitems">Back to Item List</a>
     </div>
-
 </body>
 </html>

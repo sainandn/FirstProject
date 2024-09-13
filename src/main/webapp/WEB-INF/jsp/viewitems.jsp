@@ -114,6 +114,8 @@
                     <th>Item Number</th>
                     <th>Item Name</th>
                     <th>Item Cost</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
                 <c:forEach var="item" items="${list}">
                     <tr>
@@ -121,6 +123,10 @@
                         <td>${item.itemNumber}</td>
                         <td>${item.itemName}</td>
                         <td>${item.itemCost}</td>
+                        <td>${item.date}</td>
+                        <td>
+                            <a href="edititem?itemNumber=${item.itemNumber}" class="btn">Edit</a>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>

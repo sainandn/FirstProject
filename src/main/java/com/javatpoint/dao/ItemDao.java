@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import com.javatpoint.beans.Item;
+import com.javatpoint.beans.Items;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,10 +21,10 @@ public class ItemDao {
 		template.update(sql, itemNumber);
 	}
 
-	public List<Item> getAllItems() {
+	public List<Items> getAllItems() {
 		String sql = "SELECT * FROM items";
 		return template.query(sql, (rs, rowNum) -> {
-			Item item = new Item();
+			Items item = new Items();
 			item.setItemNumber(rs.getInt("Item_Number"));
 			item.setItemName(rs.getString("Item_Name"));
 			item.setItemCost(rs.getDouble("Item_Cost"));
@@ -37,31 +37,32 @@ public class ItemDao {
 		return template.queryForObject(sql, Double.class);
 	}
 
-	public int save(Item item) {
-		String sql = "INSERT INTO items (Item_Number, Item_Name, Item_Cost) VALUES (?, ?, ?)";
-		return template.update(sql, item.getItemNumber(), item.getItemName(), item.getItemCost());
+	public int save(Items item) {
+		String sql = "INSERT INTO items (Item_Number, Item_Name, Item_Cost, Date) VALUES (?, ?, ?, ?)";
+		return template.update(sql, item.getItemNumber(), item.getItemName(), item.getItemCost(), item.getDate());
 	}
 
-	public int update(Item item) {
-		String sql = "UPDATE items SET Item_Name = '" + item.getItemName() + "', Item_Cost = " + item.getItemCost()
-				+ " WHERE Item_Number = " + item.getItemNumber();
-		return template.update(sql);
+	public int update(Items item) {
+		String sql = "UPDATE items SET Item_Name = ?, Item_Cost = ? WHERE Item_Number = ?";
+		return template.update(sql, item.getItemName(), item.getItemCost(), item.getItemNumber());
 	}
 
-	public Item getItemById(int itemNumber) {
+	public Items getItemById(int itemNumber) {
 		String sql = "SELECT * FROM items WHERE Item_Number = ?";
-		return template.queryForObject(sql, new Object[] { itemNumber }, new BeanPropertyRowMapper<Item>(Item.class));
+		return template.queryForObject(sql, new Object[] { itemNumber }, new BeanPropertyRowMapper<Items>(Items.class));
 	}
 
-	public List<Item> getItems() {
-		return template.query("SELECT * FROM items", new RowMapper<Item>() {
-			public Item mapRow(ResultSet rs, int row) throws SQLException {
-				Item item = new Item();
+	public List<Items> getItems() {
+		return template.query("SELECT * FROM items", new RowMapper<Items>() {
+			public Items mapRow(ResultSet rs, int row) throws SQLException {
+				Items item = new Items();
 				item.setItemNumber(rs.getInt(1));
 				item.setItemName(rs.getString(2));
 				item.setItemCost(rs.getDouble(3));
 				return item;
 			}
 		});
+
 	}
+
 }
