@@ -51,19 +51,4 @@ public class ItemController {
 		}
 		return "redirect:/viewitems"; 
 	}
-	
-	 // Show edit form for an item
-    @RequestMapping(value = "/edititem", method = RequestMethod.GET)
-    public String editItem(@RequestParam("itemNumber") int itemNumber, Model m) {
-        Items item = dao.getItemById(itemNumber); // Fetch the item by its ID
-        m.addAttribute("command", item); // Add item to the model
-        return "edititemform"; // Return the edit form view
-    }
-
-    // Handle the update request
-    @RequestMapping(value = "/updateitem", method = RequestMethod.POST)
-    public String updateItem(@ModelAttribute("item") Items item) {
-        dao.update(item); // Update the item in the database
-        return "redirect:/viewitems"; // Redirect to the view items page
-    }
 }

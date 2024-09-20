@@ -53,6 +53,19 @@
         input[type="checkbox"] {
             transform: scale(1.2);
         }
+        .btn-edit {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
         .total-cost {
             font-size: 1.5rem;
             font-weight: 600;
@@ -111,22 +124,20 @@
             <table>
                 <tr>
                     <th>Select</th>
+                    <th>Date</th>
                     <th>Item Number</th>
                     <th>Item Name</th>
                     <th>Item Cost</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th>Edit</th>
                 </tr>
                 <c:forEach var="item" items="${list}">
                     <tr>
                         <td><input type="checkbox" name="itemNumbers" value="${item.itemNumber}" /></td>
+                        <td>${item.date}</td>
                         <td>${item.itemNumber}</td>
                         <td>${item.itemName}</td>
                         <td>${item.itemCost}</td>
-                        <td>${item.date}</td>
-                        <td>
-                            <a href="edititem?itemNumber=${item.itemNumber}" class="btn">Edit</a>
-                        </td>
+                        <td><a href="${pageContext.request.contextPath}/editItem/${item.itemNumber}" class="btn-edit">Edit</a></td>
                     </tr>
                 </c:forEach>
             </table>
